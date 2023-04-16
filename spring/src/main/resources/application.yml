@@ -1,0 +1,25 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          yandex:
+            client-id: ${APP_YANDEX_CLIENT_ID}
+            client-secret: ${APP_YANDEX_CLIENT_SECRET}
+            authorization-grant-type: authorization_code # токен получаем с помощью кода
+            client-authentication-method: client_secret_basic # токен получаем с хедером Authorization: Basic base64(<client_id>:<secret>)
+            redirect-uri: http://localhost:8080/login/oauth2/code/yandex # после аут редирект на данный uri с кодом в параметре
+#            scope: # если надо получить только определенные данные. Можно получить инфо о доступных scope для твоего приложения по: https://oauth.yandex.ru/client/<client_id>/info
+#              - login:email
+        provider:
+          yandex:
+            authorization-uri: https://oauth.yandex.ru/authorize # точка для аут пользователя
+            token-uri: https://oauth.yandex.ru/token # точка для получения и обновления токена
+            user-info-uri: https://login.yandex.ru/info # точка для получения данных пользователя, добавляем хедер Authorization: OAuth <OAuth-токен>
+            user-name-attribute: login # какое поле из данных пользователя ипользовать для идентификации ( Principal.getName() )
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
