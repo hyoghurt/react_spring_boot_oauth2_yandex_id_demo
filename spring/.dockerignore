@@ -1,4 +1,5 @@
 README.md
 .idea
 .env
+.gitignore
 target

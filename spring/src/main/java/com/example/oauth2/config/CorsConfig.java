@@ -14,14 +14,20 @@ import java.util.List;
 public class CorsConfig {
     private static final Long MAX_AGE = 3600L;
 
+    private final LocationProperties locationProperties;
+
+    public CorsConfig(LocationProperties locationProperties) {
+        this.locationProperties = locationProperties;
+    }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(List.of("*"));
-//        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
-        configuration.setAllowedOriginPatterns(List.of("*"));
+        configuration.setAllowedOrigins(List.of(locationProperties.getUrl()));
+//        configuration.setAllowedOriginPatterns(List.of("*"));
         configuration.setAllowedMethods(Arrays.asList(
                 HttpMethod.GET.name(),
                 HttpMethod.POST.name(),

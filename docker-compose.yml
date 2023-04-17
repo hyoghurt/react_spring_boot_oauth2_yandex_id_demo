@@ -3,7 +3,8 @@ version: "3.9"
 services:
   app:
     build: ./spring
-    container_name: app
+    image: oauth-app
+    container_name: oauth-app
     restart: unless-stopped
     environment:
       APP_YANDEX_CLIENT_ID: ${APP_YANDEX_CLIENT_ID}
@@ -13,7 +14,8 @@ services:
 
   ui:
     build: ./react
-    container_name: ui
+    image: oauth-ui
+    container_name: oauth-ui
     restart: unless-stopped
     ports:
       - "3000:80"

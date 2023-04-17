@@ -1,23 +1,5 @@
 import client from "./client";
-import { AxiosError, AxiosRequestConfig } from "axios";
-
-const postWithCsrf = async (
-  url: string,
-  data?: any,
-  config?: AxiosRequestConfig<void | undefined>
-) => {
-  // get token csrf
-  const csrf = await client().get("/csrf");
-
-  // request post
-  return client().post(url, data, {
-    ...config,
-    headers: {
-      ...config?.headers,
-      "X-CSRF-TOKEN": csrf.data.token, //put token csrf
-    },
-  });
-};
+import { AxiosError } from "axios";
 
 export default function service() {
   function me() {
@@ -29,21 +11,21 @@ export default function service() {
   }
 
   function postRequest(data?: string | undefined) {
-    return postWithCsrf("private/ping", data);
+    return client().post("private/ping", data);
   }
 
   function login(data: { username: string; password: string }) {
     // https://axios-http.com/docs/urlencodedhttps://axios-http.com/docs/urlencoded
     const dataReq = `username=${data.username}&password=${data.password}`;
-    return postWithCsrf("/login", dataReq, {
+    return client().post("/login", dataReq, {
       headers: {
-        "Content-type": "application/x-www-form-urlencoded",
-      },
+        "Content-type": "application/x-www-form-urlencoded"
+      }
     });
   }
 
   function logout() {
-    return postWithCsrf("/logout");
+    return client().post("/logout");
   }
 
   function errMessage(err: AxiosError) {

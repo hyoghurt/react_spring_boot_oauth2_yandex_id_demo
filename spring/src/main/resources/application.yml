@@ -23,3 +23,12 @@ logging:
     org:
       springframework:
         security: DEBUG
+
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: lax
+
+front:
+  url: http://localhost:3000
