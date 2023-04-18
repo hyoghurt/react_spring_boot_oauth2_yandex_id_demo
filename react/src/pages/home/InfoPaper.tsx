@@ -46,7 +46,9 @@ export default function InfoPaper() {
         <Divider variant={"middle"} />
       </Box>
       <Box sx={{ textAlign: "center", mb: 1 }}>
-        {auth.isAuth ? (
+        {auth.isLoading ? (
+          <Typography variant={"body2"}>Loading...</Typography>
+        ) : auth.isAuth ? (
           <>
             <Typography variant={"h4"}>You auth</Typography>
             <Typography variant={"body2"} sx={{ overflowWrap: "break-word" }}>

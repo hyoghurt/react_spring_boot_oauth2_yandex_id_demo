@@ -11,7 +11,7 @@ export interface AuthState extends BaseState {
 const initialState: AuthState = {
   data: null,
   isAuth: false,
-  isLoading: false,
+  isLoading: true,
   error: null,
 };
 

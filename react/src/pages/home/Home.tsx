@@ -13,10 +13,15 @@ import LoginForm from "./LoginForm";
 import AuthServices from "./AuthServices";
 import InfoPaper from "./InfoPaper";
 import { fetchLogin, fetchLogout, fetchMe } from "./redux/authSlice";
+import { useLocation } from "react-router-dom";
 
 export default function Home() {
   const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  // for redirect from login page
+  let from = location.state?.from?.pathname || "/";
 
   React.useEffect(() => {
     if (!auth.data) {
@@ -24,8 +29,12 @@ export default function Home() {
     }
   }, [auth.isAuth]);
 
+  const getContinue = () => {
+    return window.location.origin.concat(from)
+  }
+
   const handleOAuth2 = (data: string) => {
-    window.location.href = `${URL_BACK}/oauth2/authorization/${data}`;
+    window.location.href = `${URL_BACK}/oauth2/authorization/${data}?continue=${getContinue()}`;
   };
 
   const handleLogin = (data: { username: string; password: string }) => {
