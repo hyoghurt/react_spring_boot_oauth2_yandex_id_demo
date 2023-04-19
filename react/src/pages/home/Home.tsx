@@ -1,16 +1,9 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/common/redux/hooks";
-import {
-  Box,
-  Button,
-  CssBaseline,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Button, CssBaseline, Divider, Grid, Typography } from "@mui/material";
 import { URL_BACK } from "../../app/constants";
 import LoginForm from "./LoginForm";
-import AuthServices from "./AuthServices";
+import OAuthButtons from "./AuthServices";
 import InfoPaper from "./InfoPaper";
 import { fetchLogin, fetchLogout, fetchMe } from "./redux/authSlice";
 import { useLocation } from "react-router-dom";
@@ -66,7 +59,7 @@ export default function Home() {
                 <Divider variant="middle" sx={{ my: 1 }}>
                   or
                 </Divider>
-                <AuthServices handleClick={handleOAuth2} />
+                <OAuthButtons handleClick={handleOAuth2} />
               </>
             )}
           </Box>
