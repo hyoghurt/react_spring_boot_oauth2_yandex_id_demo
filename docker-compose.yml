@@ -9,6 +9,10 @@ services:
     environment:
       APP_YANDEX_CLIENT_ID: ${APP_YANDEX_CLIENT_ID}
       APP_YANDEX_CLIENT_SECRET: ${APP_YANDEX_CLIENT_SECRET}
+      APP_GOOGLE_CLIENT_ID: ${APP_GOOGLE_CLIENT_ID}
+      APP_GOOGLE_CLIENT_SECRET: ${APP_GOOGLE_CLIENT_SECRET}
+      APP_FRONT_URL: http://localhost:3000
+      APP_MY_URL: http://localhost:8080
     ports:
       - "8080:8080"
 

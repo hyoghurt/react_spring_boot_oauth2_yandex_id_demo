@@ -1,10 +1,10 @@
 FROM node:16-alpine as builder
 
 WORKDIR /usr/src/app
-COPY package*.json ./
-
 # update npm
 RUN npm install -g npm@8.19.1
+
+COPY package*.json ./
 
 # ci -best install
 # --legacy-peer-deps -ignore all peerDependencies when installing

@@ -9,7 +9,6 @@ spring:
             scope:
               - email
               - profile
-
           yandex:
             client-id: ${APP_YANDEX_CLIENT_ID}
             client-secret: ${APP_YANDEX_CLIENT_SECRET}
