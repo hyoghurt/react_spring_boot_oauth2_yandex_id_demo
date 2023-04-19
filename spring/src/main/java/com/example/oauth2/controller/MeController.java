@@ -22,8 +22,6 @@ public class MeController {
 
 //    @GetMapping("/me")
 //    public Map<String, Object> get(Principal principal,
-//                                   @RequestHeader Map<String, String> headers,
-//                                   @RequestParam Map<String,String> allParams,
 //                                   @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient client,
 //                                   @AuthenticationPrincipal OAuth2User user) {
 //    }

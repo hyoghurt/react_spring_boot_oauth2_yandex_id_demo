@@ -1,5 +1,6 @@
 package com.example.oauth2.config;
 
+import com.example.oauth2.propertie.LocationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,7 +27,7 @@ public class CorsConfig {
 
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowedOrigins(List.of(locationProperties.getUrl()));
+        configuration.setAllowedOrigins(List.of(locationProperties.getFront_url()));
 //        configuration.setAllowedOriginPatterns(List.of("*"));
         configuration.setAllowedMethods(Arrays.asList(
                 HttpMethod.GET.name(),

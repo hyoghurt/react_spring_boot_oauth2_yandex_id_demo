@@ -8,11 +8,11 @@ public class PingController {
 
     @GetMapping("/ping")
     public String ping() {
-        return "pong (GET method)";
+        return "GET - pong";
     }
 
     @PostMapping("/ping")
     public String post(@RequestBody String body) {
-        return "pong (POST method): ".concat(body);
+        return "POST - pong - ".concat(body);
     }
 }

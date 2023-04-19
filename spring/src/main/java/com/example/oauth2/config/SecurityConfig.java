@@ -3,7 +3,9 @@ package com.example.oauth2.config;
 import com.example.oauth2.config.filter.CookieCsrfFilter;
 import com.example.oauth2.config.filter.SaveRequestForOAuth2AuthenticationHandlerFilter;
 import com.example.oauth2.config.handler.HttpStatusReturningAuthenticationSuccessHandler;
+import com.example.oauth2.config.handler.RedirectAuthenticationFailureHandler;
 import com.example.oauth2.config.handler.RedirectAuthenticationSuccessHandler;
+import com.example.oauth2.propertie.LocationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -12,10 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.*;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
@@ -24,6 +23,12 @@ import org.springframework.security.web.csrf.XorCsrfTokenRequestAttributeHandler
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final LocationProperties locationProperties;
+
+    public SecurityConfig(LocationProperties locationProperties) {
+        this.locationProperties = locationProperties;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -74,6 +79,7 @@ public class SecurityConfig {
         // OAUTH2
         // after auth redirect defaultUrl or value from param
         http.oauth2Login()
+                .failureHandler(customFailureHandler())
                 .successHandler(customSuccessHandler());
 
         // save request if request matches /oauth2/authorization/{registrationId}
@@ -83,11 +89,18 @@ public class SecurityConfig {
         return http.build();
     }
 
+    private AuthenticationFailureHandler customFailureHandler() {
+        RedirectAuthenticationFailureHandler failureHandler = new RedirectAuthenticationFailureHandler();
+        failureHandler.setDefaultTargetUrl(locationProperties.getFront_url()); // default url if param == null
+        failureHandler.setTargetUrlParameter("continue"); // param from /oauth2/authorization/{registrationId}
+        return failureHandler;
+    }
+
     private AuthenticationSuccessHandler customSuccessHandler() {
         RedirectAuthenticationSuccessHandler successHandler = new RedirectAuthenticationSuccessHandler();
-        successHandler.setDefaultTargetUrl("http://localhost:3000"); // default url if param == null
+        successHandler.setDefaultTargetUrl(locationProperties.getFront_url()); // default url if param == null
         successHandler.setTargetUrlParameter("continue"); // param from /oauth2/authorization/{registrationId}
-        successHandler.setAlwaysUseDefaultTargetUrl(true); // if error or success
+        successHandler.setAlwaysUseDefaultTargetUrl(true);
         return successHandler;
     }
 }
