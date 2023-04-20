@@ -1,3 +1,6 @@
+Google doc - https://developers.google.com/identity/openid-connect/openid-connect  
+Yandex doc - https://yandex.ru/dev/id/doc/ru/  
+
 Fill in the **.env** file
 ```
 APP_YANDEX_CLIENT_ID=...
