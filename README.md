@@ -10,6 +10,8 @@ APP_GOOGLE_CLIENT_SECRET=...
 ### used
 API: Spring Boot 3.0.4 (Spring Security 6.0.2)  
 UI: React, Material UI, Redux / Toolkit, Axios
+
+Enable CORS and CSRF
 ### screen ui
 ![Screenshot](https://user-images.githubusercontent.com/82288235/233479951-382cd381-68fc-4639-bad1-7ba5ab46e7db.png)
 ### example yandex flow
