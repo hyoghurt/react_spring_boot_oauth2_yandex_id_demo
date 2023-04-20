@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   app:
-    build: ./spring
+    build: ./api
     image: oauth-app
     container_name: oauth-app
     restart: unless-stopped
@@ -17,7 +17,7 @@ services:
       - "8080:8080"
 
   ui:
-    build: ./react
+    build: ./ui
     image: oauth-ui
     container_name: oauth-ui
     restart: unless-stopped
